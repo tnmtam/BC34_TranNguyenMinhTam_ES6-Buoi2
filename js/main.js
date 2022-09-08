@@ -10,5 +10,36 @@ let dataGlasses = [
     { id: "G9", src: "./img/g9.jpg", virtualImg: "./img/v9.png", brand: "Coarch", name: "MIDNIGHT VIXEN REMIX", color: "Blue, Black", price: 120, description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit consequatur soluta ad aut laborum amet." }
 ];
 
+function getEle (id) {
+    return document.getElementById(id);
+}
 
+function querySlt (id) {
+    return document.querySelector(id);
+}
+
+const renderGlasses = dataGlasses.reduce((previousValue,currentValue)=>{
+    return previousValue +=`
+        <img 
+            class="col-4" onclick="clickGlasses('${currentValue.id}')" 
+            src="${currentValue.src}" style="width: 100%";>` 
+},'');
+
+getEle('vglassesList').innerHTML = renderGlasses;
+
+const clickGlasses = (id)=>{
+    let temple = '';
+    for(let value of dataGlasses){ 
+        if(value.id === id){
+            temple = value
+            break;
+        };   
+    };
+    getEle('img').src =temple.virtualImg;
+    getEle('img').hidden = false;
+    querySlt('h4').innerHTML = temple.name +' - '+ temple.brand+' ('+temple.color+')';
+    getEle('btnMoney').innerHTML = `$${temple.price}`;
+    querySlt('p').innerHTML = temple.description;
+    querySlt('#glassesInfo').style.display = 'inline-block';
+}
 
